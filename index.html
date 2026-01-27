@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloudXP - Retrospective Update Journey Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E3A8A;
+            --secondary-blue: #3B82F6;
+            --light-blue: #EFF6FF;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --error-red: #EF4444;
+            --status-red: #DC2626;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --border-gray: #D1D5DB;
+            --bg-white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: white;
+            width: 300px;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info {
+            font-size: 14px;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: white;
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-light);
+        }
+
+        .nav-item.active {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .breadcrumbs {
+            padding: 12px 24px;
+            background: white;
+            border-bottom: 1px solid var(--border-gray);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumbs a {
+            color: var(--secondary-blue);
+            text-decoration: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Screen Navigation */
+        .screen-nav {
+            background: white;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .screen-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .screen-indicator {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .screen-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-gray);
+        }
+
+        .screen-dot.active {
+            background: var(--primary-blue);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: var(--font-family);
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1E40AF;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-blue);
+            border: 1px solid var(--border-gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        .btn-danger {
+            background: var(--error-red);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--status-red);
+            color: white;
+            margin: 16px 0;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .filter-card {
+            background: white;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 16px;
+            min-width: 200px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .filter-option input[type="checkbox"],
+        .filter-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-gray);
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background: var(--light-blue);
+            cursor: pointer;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mom-link {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mom-link:hover {
+            text-decoration: underline;
+        }
+
+        .mom-link.not-published {
+            color: var(--warning-yellow);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90vw;
+            box-shadow: 0 20px 25px rgba(0,0,0,0.15);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .warning-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--warning-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-message {
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: var(--error-red);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: var(--font-family);
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Three Panel Layout */
+        .three-panel {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .participant-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid var(--border-gray);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .participant-info {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .participant-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid var(--border-gray);
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+
+        .tab:hover {
+            color: var(--primary-blue);
+        }
+
+        .tab.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        /* Summary Cards */
+        .summary-cards {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            flex: 1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success-green);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 3000;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .toast.active {
+            display: flex;
+        }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-16 {
+            margin-top: 16px;
+        }
+
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .gap-12 {
+            gap: 12px;
+        }
+
+        /* Screen Styles */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .warning-message {
+            background: #FEF3C7;
+            border-left: 4px solid var(--warning-yellow);
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">Jio CloudXP</div>
+            <input type="text" class="search-bar" placeholder="Find what you are looking for">
+        </div>
+        <div class="header-right">
+            <div class="user-info">Parikshit | Jio Platforms Limited</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-bar">
+        <div class="nav-item">Resources</div>
+        <div class="nav-item">Marketplace</div>
+        <div class="nav-item">Operations</div>
+        <div class="nav-item">AIOps</div>
+        <div class="nav-item">SecOps</div>
+        <div class="nav-item">FinOps</div>
+        <div class="nav-item">Analytics</div>
+        <div class="nav-item active">Governance</div>
+        <div class="nav-item">Administration</div>
+    </div>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="#">Home</a> > <a href="#">Governance</a> > <a href="#">Meetings & MoM</a> > <span id="breadcrumb-current">Reports</span>
+    </div>
+
+    <!-- Screen Navigation -->
+    <div class="screen-nav">
+        <div class="screen-title" id="screen-title">Screen 1: Reports Menu</div>
+        <div class="screen-indicator">
+            <div class="screen-dot active" data-screen="1"></div>
+            <div class="screen-dot" data-screen="2"></div>
+            <div class="screen-dot" data-screen="3"></div>
+            <div class="screen-dot" data-screen="4"></div>
+            <div class="screen-dot" data-screen="5"></div>
+            <div class="screen-dot" data-screen="6"></div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary btn-small" onclick="previousScreen()">← Previous</button>
+            <button class="btn btn-primary btn-small" onclick="nextScreen()">Next →</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Screen 1: Reports Menu -->
+        <div class="screen active" id="screen-1">
+            <div class="card">
+                <div class="flex-between mb-16">
+                    <h2 class="card-title">Meeting Reports</h2>
+                    <button class="btn btn-secondary btn-small">📥 Download Report</button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-card">
+                        <div class="filter-label">Meeting Type</div>
+                        <select class="form-select" style="width: 100%;">
+                            <option>Parikshit "Open" Meeting Type</option>
+                            <option>Weekly Review</option>
+                            <option>Monthly Review</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-card">
+                        <div class="filter-label">Period</div>
+                        <div class="filter-option">
+                            <input type="radio" name="period" id="today" checked>
+                            <label for="today">Today</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="period" id="week">
+                            <label for="week">This Week</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="radio" name="period" id="month">
+                            <label for="month">This Month</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-card">
+                        <div class="filter-label">Status</div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="completed" checked>
+                            <label for="completed">Completed (10)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="not-started" checked>
+                            <label for="not-started">Not Started (4)</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-card">
+                        <div class="filter-label">MOM Status</div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="not-published" checked>
+                            <label for="not-published">Not Published (10)</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="published" checked>
+                            <label for="published">Published (4)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Scheduled Date</th>
+                                <th>Status</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Meeting Type</th>
+                                <th>Meeting Title</th>
+                                <th>Domain Lead</th>
+                                <th>MOM</th>
+                                <th>Organiser</th>
+                                <th>Platform Lead</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>02-JAN-2026</td>
+                                <td>Completed</td>
+                                <td>12:37</td>
+                                <td>15:28</td>
+                                <td>Parikshit "Open" Meeting...</td>
+                                <td>Test 31 Dec</td>
+                                <td>YOGESH.SOSALE</td>
+                                <td><a href="#" class="mom-link">Published</a></td>
+                                <td>Parikshit.Das</td>
+                                <td>MAHESH.TRIPATHI</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>02-JAN-2026</td>
+                                <td>Completed</td>
+                                <td>16:37</td>
+                                <td>16:40</td>
+                                <td>Parikshit "Open" Meeting...</td>
+                                <td>Test Meeting - IN PERSON TEST</td>
+                                <td>YOGESH.SOSALE</td>
+                                <td><a href="#" class="mom-link">Published</a></td>
+                                <td>Jyoti.Aditya</td>
+                                <td>MAHESH.TRIPATHI</td>
+                            </tr>
+                            <tr onclick="showModal()" style="cursor: pointer;">
+                                <td>3</td>
+                                <td>02-JAN-2026</td>
+                                <td>Completed</td>
+                                <td>15:39</td>
+                                <td>16:09</td>
+                                <td>Parikshit "Open" Meeting...</td>
+                                <td>1-Jan-2026 Meeting Except mode</td>
+                                <td>YOGESH.SOSALE</td>
+                                <td><a href="#" class="mom-link not-published" onclick="event.stopPropagation(); showModal();">Not Published</a></td>
+                                <td>Parikshit.Das</td>
+                                <td>MAHESH.TRIPATHI</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>31-DEC-2025</td>
+                                <td>Completed</td>
+                                <td>14:07</td>
+                                <td>14:16</td>
+                                <td>Parikshit "Open" Meeting...</td>
+                                <td>Test Meeting - WEEKLY</td>
+                                <td>YOGESH.SOSALE</td>
+                                <td><a href="#" class="mom-link">Published</a></td>
+                                <td>Parikshit.Das</td>
+                                <td>MAHESH.TRIPATHI</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>31-DEC-2025</td>
+                                <td>Completed</td>
+                                <td>17:06</td>
+                                <td>17:36</td>
+                                <td>Parikshit "Open" Meeting...</td>
+                                <td>Test Meeting - WEEKLY on MONDAY</td>
+                                <td>YOGESH.SOSALE</td>
+                                <td><a href="#" class="mom-link not-published">Not Published</a></td>
+                                <td>Parikshit.Das</td>
+                                <td>MAHESH.TRIPATHI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <div class="pagination-info">Show <select style="padding: 4px 8px; border: 1px solid var(--border-gray); border-radius: 4px;"><option>50</option></select> records</div>
+                        <div class="pagination-controls">
+                            <span style="font-size: 13px; color: var(--text-secondary);">1 to 14 of 14</span>
+                            <button class="btn btn-secondary btn-small">←</button>
+                            <button class="btn btn-secondary btn-small">→</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Confirmation Modal -->
+        <div class="screen" id="screen-2">
+            <div class="card">
+                <h2 class="card-title">Confirmation Modal</h2>
+                <p style="margin-bottom: 24px; color: var(--text-secondary);">This screen shows the confirmation modal that appears when clicking "Not Published" MoM status.</p>
+                <button class="btn btn-primary" onclick="showModal()">Show Confirmation Modal</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: My Meetings View -->
+        <div class="screen" id="screen-3">
+            <div class="status-badge">Status: Retrospective Update</div>
+            
+            <div class="three-panel">
+                <!-- Left Panel -->
+                <div class="panel">
+                    <div class="panel-title">Meeting Details</div>
+                    <div class="form-group">
+                        <label class="form-label">Meeting Type</label>
+                        <select class="form-select">
+                            <option>Parikshit "Open" Meeting Type</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Meeting Date</label>
+                        <input type="text" class="form-input" value="02-JAN-2026" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Start time</label>
+                        <input type="time" class="form-input" value="15:39">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End time</label>
+                        <input type="time" class="form-input" value="16:09">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 16px;">Edit Meeting</button>
+                </div>
+
+                <!-- Center Panel -->
+                <div class="panel">
+                    <div class="panel-title">Participants</div>
+                    <div style="margin-bottom: 16px;">
+                        <div class="participant-row">
+                            <input type="radio" name="p1" checked>
+                            <input type="radio" name="p1">
+                            <div class="participant-info">Santosh15.Patil</div>
+                            <select class="form-select" style="width: 120px;">
+                                <option>Domain ID</option>
+                            </select>
+                        </div>
+                        <div class="participant-row">
+                            <input type="radio" name="p2" checked>
+                            <input type="radio" name="p2">
+                            <div class="participant-info">Parikshit.Das (Organiser)</div>
+                            <select class="form-select" style="width: 120px;">
+                                <option>Domain ID</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="border-top: 1px solid var(--border-gray); padding-top: 16px; margin-top: 16px;">
+                        <div class="form-label">Add Adhoc Participant for this meeting</div>
+                        <div style="display: flex; gap: 8px; margin-top: 8px;">
+                            <select class="form-select" style="flex: 1;">
+                                <option>Select Domain ID</option>
+                            </select>
+                            <button class="btn btn-secondary btn-small">Required Attendee</button>
+                            <button class="btn btn-secondary btn-small">Optional Attendee</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="panel">
+                    <div class="flex-between mb-16">
+                        <div class="panel-title">Action Points Summary</div>
+                        <button class="btn btn-secondary btn-small">📥 Download Report</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>No ETA</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <a href="#" style="color: var(--secondary-blue); font-size: 13px; text-decoration: none;">Open Action Points</a><br>
+                        <a href="#" style="color: var(--secondary-blue); font-size: 13px; text-decoration: none;">Closed Action Points in Last 72 Hours</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 24px;">
+                <button class="btn btn-primary" onclick="goToScreen(4)">Minutes of Meeting →</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: MoM Capture View -->
+        <div class="screen" id="screen-4">
+            <div class="status-badge">Status: Retrospective Update</div>
+            
+            <div class="warning-message">
+                <span>⚠️</span>
+                <span>By leaving this page you will lose the data you have entered here.</span>
+            </div>
+
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-label">Action Point Summary</div>
+                    <div class="summary-value">1</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Closed Action Point</div>
+                    <div class="summary-value">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Open Action Point</div>
+                    <div class="summary-value">1</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Open Discussion Point</div>
+                    <div class="summary-value">0</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="margin-bottom: 16px;">
+                    <div class="form-group">
+                        <label class="form-label">Meeting Name</label>
+                        <input type="text" class="form-input" value="Test Meeting for MS Teams" readonly>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label class="form-label">Start Time</label>
+                            <input type="datetime-local" class="form-input" value="2026-01-02T15:39">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Time</label>
+                            <input type="datetime-local" class="form-input" value="2026-01-02T16:09">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab">Attendees</button>
+                    <button class="tab active">Minutes of Meeting</button>
+                </div>
+
+                <div class="card" style="background: var(--bg-light);">
+                    <div class="card-title">Capture MoM Point</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label class="form-label">Point Raised By</label>
+                            <select class="form-select">
+                                <option>Parikshit.Das</option>
+                                <option>Santosh15.Patil</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type</label>
+                            <select class="form-select">
+                                <option>ACTION</option>
+                                <option>DECISION</option>
+                                <option>DISCUSSION</option>
+                                <option>INFORMATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Point Discussed</label>
+                        <textarea class="form-textarea" placeholder="Enter the discussion point..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Decision/Action</label>
+                        <textarea class="form-textarea" placeholder="Enter decision or action details..."></textarea>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="inconclusive">
+                            <label for="inconclusive">Inconclusive</label>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="non-participant">
+                            <label for="non-participant">Non Participant</label>
+                        </div>
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="open-eta">
+                            <label for="open-eta">Open ETA</label>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label class="form-label">Action Owner</label>
+                            <select class="form-select">
+                                <option>Select Action Owner</option>
+                                <option>Parikshit.Das</option>
+                                <option>Santosh15.Patil</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Criticality</label>
+                            <select class="form-select">
+                                <option>Select Criticality</option>
+                                <option>Standard</option>
+                                <option>High</option>
+                                <option>Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Due Date</label>
+                            <input type="date" class="form-input">
+                        </div>
+                    </div>
+                    <div style="text-align: right; margin-top: 16px;">
+                        <button class="btn btn-primary">+ Add</button>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="flex-between mb-16">
+                        <div class="card-title">Added MoMs</div>
+                        <div>
+                            <button class="btn btn-secondary btn-small">Edit</button>
+                            <button class="btn btn-danger btn-small">Delete</button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Point Raised By</th>
+                                    <th>Point Discussed</th>
+                                    <th>Type</th>
+                                    <th>Action Owner</th>
+                                    <th>Criticality</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Parikshit.Das</td>
+                                    <td>Action to be taken</td>
+                                    <td>ACTION</td>
+                                    <td>Santosh15.Patil</td>
+                                    <td>Standard</td>
+                                    <td>31-01-2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 24px;">
+                    <button class="btn btn-secondary">Save as Draft</button>
+                    <button class="btn btn-primary" onclick="goToScreen(5)">Review →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: MoM Publish View -->
+        <div class="screen" id="screen-5">
+            <div class="card">
+                <div class="flex-between mb-16">
+                    <h2 class="card-title">Retrospective MoM Update view</h2>
+                    <button class="btn btn-secondary btn-small" onclick="goToScreen(4)">← Back</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Meeting Type</label>
+                            <input type="text" class="form-input" value="Parikshit 'Open' Meeting Type" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-input" value="1-Jan-2026 Meeting Except mode" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Start Time</label>
+                            <input type="text" class="form-input" value="02-01-2026 15:39:00" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Time</label>
+                            <input type="text" class="form-input" value="02-01-2026 16:09:00" readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label class="form-label">Participants</label>
+                            <input type="text" class="form-input" value="Parikshit.Das, Santosh15.Patil" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Absentee(s)</label>
+                            <input type="text" class="form-input" placeholder="Enter absentees">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Informational</label>
+                            <input type="text" class="form-input" placeholder="Enter informational recipients">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Add Distribution list/ Additional Email ID</label>
+                    <textarea class="form-textarea" placeholder="Please enter email id's separated by semicolon"></textarea>
+                    <div class="warning-message" style="margin-top: 8px;">
+                        <span>⚠️</span>
+                        <span>Email Distribution Lists having sender restrictions will not receive the MOM</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Attachments</label>
+                    <button class="btn btn-secondary">📎 Add attachment</button>
+                    <div style="margin-top: 8px; font-size: 12px; color: var(--error-red);">
+                        Do not exceed limit of 5MB for individual file. Total Attachment Size should not exceed 25MB.
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-title">Minutes of Meeting</div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Point Raised By</th>
+                                    <th>Point Discussed</th>
+                                    <th>Type</th>
+                                    <th>Inconclusive</th>
+                                    <th>Action Owner</th>
+                                    <th>Platform</th>
+                                    <th>ETA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Parikshit.Das</td>
+                                    <td>Action to be taken</td>
+                                    <td>ACTION</td>
+                                    <td>No</td>
+                                    <td>Santosh15.Patil</td>
+                                    <td>NA</td>
+                                    <td>Open</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 32px;">
+                    <button class="btn btn-primary" style="padding: 12px 48px; font-size: 16px;" onclick="publishMoM()">Publish</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Success Notification -->
+        <div class="screen" id="screen-6">
+            <div class="card text-center">
+                <div style="font-size: 48px; color: var(--success-green); margin-bottom: 24px;">✓</div>
+                <h2 style="margin-bottom: 16px; color: var(--text-primary);">MoM Published Successfully!</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                    You have successfully published MOM of <strong>Test Meeting for MS Teams</strong>.
+                </p>
+                <p style="color: var(--text-secondary); margin-bottom: 32px; font-size: 13px;">
+                    Email notifications have been sent to all recipients.
+                </p>
+                <button class="btn btn-primary" onclick="goToScreen(1)">Return to Reports</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="warning-icon">⚠</div>
+                    Notice
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-message">
+                    <p>No Minutes were recorded for this meeting on <strong>02-JAN-2026</strong>.</p>
+                    <p style="margin-top: 12px;">Do you want to record retrospective MoM for this meeting?</p>
+                    <p style="margin-top: 12px; color: var(--text-secondary);">You need to be the meeting organiser to perform this action.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="confirmRetrospective()">Confirm</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Discard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">MoM published successfully!</span>
+    </div>
+
+    <script>
+        let currentScreen = 1;
+        const totalScreens = 6;
+
+        const screenTitles = {
+            1: "Screen 1: Reports Menu",
+            2: "Screen 2: Confirmation Modal",
+            3: "Screen 3: My Meetings View",
+            4: "Screen 4: MoM Capture View",
+            5: "Screen 5: MoM Publish View",
+            6: "Screen 6: Success Notification"
+        };
+
+        const breadcrumbs = {
+            1: "Reports",
+            2: "Reports",
+            3: "My Calendar",
+            4: "My Calendar",
+            5: "My Calendar",
+            6: "My Calendar"
+        };
+
+        function updateScreen() {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+            // Show current screen
+            document.getElementById(`screen-${currentScreen}`).classList.add('active');
+
+            // Update screen indicator
+            document.querySelectorAll('.screen-dot').forEach((dot, index) => {
+                if (index + 1 === currentScreen) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Update title
+            document.getElementById('screen-title').textContent = screenTitles[currentScreen];
+
+            // Update breadcrumb
+            document.getElementById('breadcrumb-current').textContent = breadcrumbs[currentScreen];
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function nextScreen() {
+            if (currentScreen < totalScreens) {
+                currentScreen++;
+                updateScreen();
+            }
+        }
+
+        function previousScreen() {
+            if (currentScreen > 1) {
+                currentScreen--;
+                updateScreen();
+            }
+        }
+
+        function goToScreen(screenNumber) {
+            if (screenNumber >= 1 && screenNumber <= totalScreens) {
+                currentScreen = screenNumber;
+                updateScreen();
+            }
+        }
+
+        function showModal() {
+            document.getElementById('confirmationModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').classList.remove('active');
+        }
+
+        function confirmRetrospective() {
+            closeModal();
+            goToScreen(3);
+        }
+
+        function publishMoM() {
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.classList.add('active');
+            
+            // Navigate to success screen after delay
+            setTimeout(() => {
+                toast.classList.remove('active');
+                goToScreen(6);
+            }, 1500);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && e.ctrlKey) {
+                nextScreen();
+            } else if (e.key === 'ArrowLeft' && e.ctrlKey) {
+                previousScreen();
+            }
+        });
+
+        // Close modal on overlay click
+        document.getElementById('confirmationModal').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmationModal') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        updateScreen();
+    </script>
+</body>
+</html>
